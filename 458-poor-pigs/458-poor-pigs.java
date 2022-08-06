@@ -1,7 +1,6 @@
-class Solution:
-    def poorPigs(self, b, y, x):
-        T = x//y
-        x = 0
-        while (T+1)**x < b:
-            x += 1
-        return x
+class Solution {
+    public int poorPigs(int buckets, int minutesToDie, int minutesToTest) {
+        int T = minutesToTest/minutesToDie;   //Trial count          
+        return (int)Math.ceil(Math.log(buckets)/Math.log(T+1));
+    }
+}
