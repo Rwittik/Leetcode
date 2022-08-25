@@ -25,9 +25,7 @@ class Solution {
             if (alphabets_counter[c-'a'] == 0) return false;
             alphabets_counter[c-'a']--;
         }
-        for(int i=0;i<26;i++){
-            System.out.println(alphabets_counter[i]);
-        }
+
         return true;
     }
 }
