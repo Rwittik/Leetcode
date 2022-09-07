@@ -5,9 +5,17 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def tree2str(self, t):
-        if not t: return ''
-        left = '({})'.format(self.tree2str(t.left)) if (t.left or t.right) else ''
-        right = '({})'.format(self.tree2str(t.right)) if t.right else ''
-        return '{}{}{}'.format(t.val, left, right)
+    def tree2str(self, root: Optional[TreeNode]) -> str:
+        
+        def dfs(node):
+            if not node: return ""
+            if not node.left and not node.right: return str(node.val)
+        
+            if node.right:
+                return str(node.val) + "(" + dfs(node.left) + ")" + "(" + dfs(node.right) + ")"
+            
+            return str(node.val) + "(" + dfs(node.left) + ")" 
+            #return str(node.val)
+        
+        return dfs(root)
         
