@@ -1,34 +1,55 @@
 class MyCircularQueue {
-        final int[] a;
-        int front = 0, rear = -1, len = 0;
 
-        public MyCircularQueue(int k) { a = new int[k];}
-
-        public boolean enQueue(int val) {
-            if (!isFull()) {
-                rear = (rear + 1) % a.length;
-                a[rear] = val;
-                len++;
-                return true;
-            } else return false;
-        }
-
-        public boolean deQueue() {
-            if (!isEmpty()) {
-                front = (front + 1) % a.length;
-                len--;
-                return true;
-            } else return false;
-        }
-
-        public int Front() { return isEmpty() ? -1 : a[front];}
-
-        public int Rear() {return isEmpty() ? -1 : a[rear];}
-
-        public boolean isEmpty() { return len == 0;}
-
-        public boolean isFull() { return len == a.length;}
+    int[] queue;
+    int size;
+    int used;
+    int front;
+    int rear;
+    
+    public MyCircularQueue(int k) {
+        queue = new int[k];
+        size = k;
     }
+    
+    public boolean enQueue(int value) {
+        if(isFull())
+            return false;
+        queue[rear] = value;
+        rear = (rear+1)%size;
+        used++;
+        return true;
+    }
+    
+    public boolean deQueue()
+    {
+        if(isEmpty())
+            return false;
+        front = (front+1)%size;
+        used -- ;
+        return true;
+        
+    }
+    
+    public int Front() {
+        if(isEmpty())
+            return -1;
+        return queue[front];
+    }
+    
+    public int Rear() {
+        if(isEmpty())
+            return -1;
+        return queue[(rear-1+size)%size];
+    }
+    
+    public boolean isEmpty() {
+        return used ==0;
+    }
+    
+    public boolean isFull() {
+        return used == size;
+    }
+}
 
 /**
  * Your MyCircularQueue object will be instantiated and called as such:
