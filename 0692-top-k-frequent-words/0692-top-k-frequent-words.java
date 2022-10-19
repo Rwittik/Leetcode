@@ -1,30 +1,17 @@
 class Solution {
     public List<String> topKFrequent(String[] words, int k) {
-        
-        List<String> result = new LinkedList<>();
-        Map<String, Integer> map = new HashMap<>();
-        for(int i=0; i<words.length; i++)
+        HashMap<String,Integer> freq=new HashMap<>();
+        for(int i=0;i<words.length;i++)
         {
-            if(map.containsKey(words[i]))
-                map.put(words[i], map.get(words[i])+1);
-            else
-                map.put(words[i], 1);
+            freq.put(words[i],freq.getOrDefault(words[i],0)+1);
         }
-        
-        PriorityQueue<Map.Entry<String, Integer>> pq = new PriorityQueue<>(
-                 (a,b) -> a.getValue()==b.getValue() ? b.getKey().compareTo(a.getKey()) : a.getValue()-b.getValue()
-        );
-        
-        for(Map.Entry<String, Integer> entry: map.entrySet())
-        {
-            pq.offer(entry);
-            if(pq.size()>k)
-                pq.poll();
-        }
+        List<String> res = new ArrayList(freq.keySet());
+        //sorting
+        //if two words have the same frequency, then the word with the lower alphabetical order comes first.
+        //else most frequent words will come first
+        Collections.sort(res, (w1, w2) -> freq.get(w1).equals(freq.get(w2)) ?
+                w1.compareTo(w2) : freq.get(w2) - freq.get(w1));
 
-        while(!pq.isEmpty())
-            result.add(0, pq.poll().getKey());
-        
-        return result;
+        return res.subList(0, k);
     }
 }
